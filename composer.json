@@ -1,0 +1,61 @@
+{
+    "name": "blackcube/graphql",
+    "description": "Blackcube CMS GaphQl system",
+    "keywords": ["blackcube", "cms", "gql", "graphql office", "yii", "yii2", "api"],
+    "homepage": "https://code.redcat.io/blackcube/graphql",
+    "type": "yii2-extension",
+    "license": "proprietary",
+    "support": {
+        "issues": "https://code.redcat.io/blackcube/graphql/issues",
+        "wiki": "https://code.redcat.io/blackcube/graphql/wikis/home",
+        "source": "https://code.redcat.io/blackcube/graphql/tree/devel"
+    },
+    "authors": [
+        {
+            "name": "Philippe Gaultier",
+            "email": "pgaultier@redcat.io"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "blackcube/core": "3.0.x-dev",
+        "vlucas/phpdotenv": "~5.0",
+        "yiisoft/yii2": "~2.0",
+        "yiisoft/yii2-redis": "~2.0",
+        "webonyx/graphql-php": "~14.9"
+    },
+    "require-dev" : {
+        "yiisoft/yii2-debug":"~2.0",
+        "yiisoft/yii2-gii":"~2.0"
+    },
+    "config": {
+        "process-timeout": 1800,
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "blackcube\\graphql\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-devel-3.x": "3.0.x-dev"
+        }
+    }
+}
