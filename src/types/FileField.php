@@ -1,6 +1,6 @@
 <?php
 
-namespace blackcube\graphql\components;
+namespace blackcube\graphql\types;
 
 use blackcube\core\web\helpers\Html;
 use GraphQL\Type\Definition\Type;

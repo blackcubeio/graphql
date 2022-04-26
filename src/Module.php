@@ -14,6 +14,18 @@
 
 namespace blackcube\graphql;
 
+use blackcube\graphql\inputs\CompositeFilter;
+use blackcube\graphql\inputs\Pagination;
+use blackcube\graphql\types\Bloc;
+use blackcube\graphql\types\Category;
+use blackcube\graphql\types\Composite;
+use blackcube\graphql\types\Language;
+use blackcube\graphql\types\Node;
+use blackcube\graphql\types\Parameter;
+use blackcube\graphql\types\ReadQuery;
+use blackcube\graphql\types\Tag;
+use blackcube\graphql\types\Technical;
+use blackcube\graphql\types\Type;
 use yii\base\BootstrapInterface;
 use yii\base\Module as BaseModule;
 use yii\caching\CacheInterface;
@@ -56,6 +68,34 @@ class Module extends BaseModule implements BootstrapInterface
      */
     public $cache;
 
+    /**
+     * @var string version number
+     */
+    public $version = 'v3.0-dev';
+
+    /**
+     * @var string[]
+     */
+    public $coreSingletons = [
+        Bloc::class => Bloc::class,
+        Category::class => Category::class,
+        Composite::class => Composite::class,
+        CompositeFilter::class => CompositeFilter::class,
+        Language::class => Language::class,
+        Node::class => Node::class,
+        Pagination::class => Pagination::class,
+        Parameter::class => Parameter::class,
+        ReadQuery::class => ReadQuery::class,
+        Tag::class => Tag::class,
+        Technical::class => Technical::class,
+        Type::class => Type::class,
+    ];
+
+    /**
+     * @var string[]
+     */
+    public $coreElements = [
+    ];
 
     /**
      * @inheritdoc
@@ -78,6 +118,7 @@ class Module extends BaseModule implements BootstrapInterface
     public function bootstrap($app)
     {
         Yii::setAlias('@blackcube/graphql', __DIR__);
+        $this->registerDi($app);
         $this->registerTranslations();
         if ($app instanceof ConsoleApplication) {
             $this->bootstrapConsole($app);
@@ -127,6 +168,24 @@ class Module extends BaseModule implements BootstrapInterface
             'useMoFile' => true,
             'basePath' => '@blackcube/graphql/i18n',
         ];
+    }
+
+    /**
+     * @param WebApplication|ConsoleApplication $app
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function registerDi($app)
+    {
+        foreach($this->coreSingletons as $class => $definition) {
+            if (Yii::$container->hasSingleton($class) === false) {
+                Yii::$container->setSingleton($class, $definition);
+            }
+        }
+        foreach($this->coreElements as $class => $definition) {
+            if (Yii::$container->has($class) === false) {
+                Yii::$container->set($class, $definition);
+            }
+        }
     }
 
     /**

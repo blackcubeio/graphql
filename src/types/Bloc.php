@@ -1,7 +1,8 @@
 <?php
 
-namespace blackcube\graphql\components;
+namespace blackcube\graphql\types;
 
+use blackcube\core\models\BlocType;
 use blackcube\core\models\Elastic;
 use blackcube\core\validators\ElasticValidator;
 use GraphQL\Type\Definition\ObjectType;
@@ -12,7 +13,7 @@ use Swaggest\JsonSchema\Schema;
 use yii\base\NotSupportedException;
 use yii\helpers\Inflector;
 
-class BlocType extends UnionType
+class Bloc extends UnionType
 {
     public static $blocTypes = [];
     public static $types = [];
@@ -24,7 +25,7 @@ class BlocType extends UnionType
             'description' => 'Data bloc',
             'types' => function() {
                 if (empty(static::$types)) {
-                    $blocTypes = \blackcube\core\models\BlocType::find()->all();
+                    $blocTypes = BlocType::find()->all();
                     foreach ($blocTypes as $blocType) {
                         static::$types[] = $this->buildBlocType($blocType->id); // 'BlocType' . $blocType->id; // 'BlocType'.$blocType->id;
                     }
@@ -43,7 +44,7 @@ class BlocType extends UnionType
         if (isset(static::$blocTypes[$id])) {
             return static::$blocTypes[$id];
         }
-        $blocType = \blackcube\core\models\BlocType::find()->andWhere(['id' => $id])->one();
+        $blocType = BlocType::find()->andWhere(['id' => $id])->one();
         $type = null;
         if ($blocType !== null) {
             if ($blocType->template !== null) {

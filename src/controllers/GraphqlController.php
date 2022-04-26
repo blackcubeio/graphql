@@ -15,8 +15,10 @@
 namespace blackcube\graphql\controllers;
 
 use blackcube\graphql\components\CompositeType;
+use blackcube\graphql\components\GqlTypes;
 use blackcube\graphql\components\QueryType;
 use blackcube\graphql\components\Types;
+use blackcube\graphql\types\Blackcube;
 use GraphQL\Error\DebugFlag;
 use yii\filters\AccessControl;
 use yii\filters\auth\CompositeAuth;
@@ -71,44 +73,9 @@ class GraphqlController extends Controller
     {
 
         $schema = new Schema([
-            'query' => Types::readQuery()
-        ]);
-        /*/
-        $queryType = new ObjectType([
-            'name' => 'Query',
-            'fields' => [
-                'echo' => [
-                    'type' => Type::string(),
-                    'args' => [
-                        'message' => ['type' => Type::string()],
-                    ],
-                    'resolve' => static function ($rootValue, array $args): string {
-                        return $rootValue['prefix'] . $args['message'];
-                    },
-                ],
-            ],
+            'query' => Blackcube::readQuery()
         ]);
 
-        $mutationType = new ObjectType([
-            'name' => 'Mutation',
-            'fields' => [
-                'sum' => [
-                    'type' => Type::int(),
-                    'args' => [
-                        'x' => ['type' => Type::int()],
-                        'y' => ['type' => Type::int()],
-                    ],
-                    'resolve' => static function ($calc, array $args): int {
-                        return $args['x'] + $args['y'];
-                    },
-                ],
-            ],
-        ]);
-        $schema = new Schema([
-            'query' => $queryType,
-            'mutation' => $mutationType,
-        ]);
-        /**/
         $query = Yii::$app->request->getBodyParam('query');
         $variableValues = Yii::$app->request->getBodyParam('variables');
         $rootValue = [];
