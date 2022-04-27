@@ -7,7 +7,7 @@ use blackcube\core\models\Node as Model;
 use blackcube\graphql\Module;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
-use GraphQL\Type\Definition\Type;
+use GraphQL\Type\Definition\Type as DefinitionType;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
@@ -20,19 +20,19 @@ class Node extends ObjectType
             'description' => Module::t('types', 'Node contents'),
             'fields' => [
                 'id' => [
-                    'type' => Type::id(),
+                    'type' => DefinitionType::id(),
                     'description' => Module::t('types', 'ID')
                 ],
                 'name' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' => Module::t('types', 'Name')
                 ],
                 'level' => [
-                    'type' => Type::int(),
+                    'type' => DefinitionType::int(),
                     'description' => Module::t('types', 'Level')
                 ],
                 'path' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' => Module::t('types', 'Path')
                 ],
                 'language' => [
@@ -45,56 +45,47 @@ class Node extends ObjectType
                 'type' => [
                     'type' => function() { return Blackcube::type(); },
                     'description' => Module::t('types','Type of the node (rubric)'),
-                    'resolve' => function(Model $node) {
-                        return $node->getType()->one();
-                    }
+                    'resolve' => [Type::class, 'retrieve'],
                 ],
-                /*/
-                'url' => [
-                    'type' => Type::string(),
-                    'description' => 'Public URL to access the node (rubric)',
-                    'resolve' => function(Node $node) {
-                        if ($node->slugId !== null) {
-                            return Url::toRoute($node->getRoute(), true);
-                        }
-                        return null;
-                    }
+                'slug' => [
+                    'type' => function() { return Blackcube::slug(); },
+                    'description' => Module::t('types', 'Slug of the node (rubric)'),
+                    'resolve' => [Slug::class, 'retrieve'],
                 ],
-                /**/
                 'composites' => [
-                    'type' => function() { return Type::listOf(Blackcube::composite()); },
+                    'type' => function() { return DefinitionType::listOf(Blackcube::composite()); },
                     'description' => Module::t('types','Composites attached to the node (rubric)'),
                     'resolve' => function(Model $node) {
                         return $node->getComposites()->active()->all();
                     }
                 ],
                 'nodes' => [
-                    'type' => function() { return Type::listOf(Blackcube::node()); },
+                    'type' => function() { return DefinitionType::listOf(Blackcube::node()); },
                     'description' => Module::t('types','Children of the node (rubric)'),
                     'resolve' => function(Model $node) {
                         return $node->getChildren()->active()->all();
                     }
                 ],
                 'tags' => [
-                    'type' => function() { return Type::listOf(Blackcube::tag()); },
+                    'type' => function() { return DefinitionType::listOf(Blackcube::tag()); },
                     'description' => Module::t('types','Tags attached to the node (rubric)'),
                     'resolve' => function(Model $node) {
                         return $node->getTags()->active()->all();
                     }
                 ],
                 'blocs' => [
-                    'type' => Type::listOf(Blackcube::bloc()),
+                    'type' => DefinitionType::listOf(Blackcube::bloc()),
                     'description' => Module::t('types', 'List of blocs (smallest content element) attached to the node (rubric)'),
                     'resolve' => function(Model $node) {
                         return $node->getBlocs()->all();
                     }
                 ],
                 'dateCreate' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' => Module::t('types','Creation date')
                 ],
                 'dateUpdate' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' => Module::t('types','Update date')
                 ]
             ],
@@ -112,8 +103,17 @@ class Node extends ObjectType
     public static function list($root, $args)
     {
         $pagination = Blackcube::pagination()->extract($args);
-
+        $filters = Blackcube::nodeFilter()->extract($args);
         $query = Model::find()->active();
+        if ($filters['typeId'] !== null) {
+            $query->andWhere(['typeId' => $filters['typeId']]);
+        }
+        if ($filters['languageId'] !== null) {
+            $query->andWhere(['languageId' => $filters['languageId']]);
+        }
+        if ($filters['level'] !== null) {
+            $query->andWhere(['level' => $filters['level']]);
+        }
         $query->limit($pagination['size']);
         $query->offset($pagination['offset']);
         $query->orderBy(['left' => SORT_ASC]);

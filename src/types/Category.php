@@ -7,7 +7,7 @@ use blackcube\core\models\Composite;
 use blackcube\graphql\Module;
 use blackcube\graphql\types\Blackcube;
 use GraphQL\Type\Definition\ObjectType;
-use GraphQL\Type\Definition\Type;
+use GraphQL\Type\Definition\Type as DefinitionType;
 
 class Category extends ObjectType
 {
@@ -18,25 +18,13 @@ class Category extends ObjectType
             'description' => Module::t('types', 'Category element. Categories are used for transversal hierarchy'),
             'fields' => [
                 'id' => [
-                    'type' => Type::id(),
+                    'type' => DefinitionType::id(),
                     'description' => Module::t('types', 'ID')
                 ],
                 'name' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' => Module::t('types', 'Name')
                 ],
-                /*/
-                'url' => [
-                    'type' => Type::string(),
-                    'description' => 'Url used to access the tag',
-                    'resolve' => function(Category $category) {
-                        if ($category->slugId !== null) {
-                            return Url::toRoute($category->getRoute(), true);
-                        }
-                        return null;
-                    }
-                ],
-                /**/
                 'language' => [
                     'type' => function() { return Blackcube::language(); },
                     'description' => Module::t('types', 'Language of the category'),
@@ -44,34 +32,37 @@ class Category extends ObjectType
                         return $category->getLanguage()->one();
                     }
                 ],
-
                 'type' => [
                     'type' => function() { return Blackcube::type(); },
                     'description' => Module::t('types', 'Type of the category'),
-                    'resolve' => function(Model $category) {
-                        return $category->getType()->one();
-                    }
+                    'resolve' => [Type::class, 'retrieve'],
                 ],
+                'slug' => [
+                    'type' => function() { return Blackcube::slug(); },
+                    'description' => Module::t('types', 'Slug of the category'),
+                    'resolve' => [Slug::class, 'retrieve'],
+                ],
+
                 'tags' => [
-                    'type' => function() { return Type::listOf(Blackcube::tag()); },
+                    'type' => function() { return DefinitionType::listOf(Blackcube::tag()); },
                     'description' => Module::t('types', 'Tags attached to the category'),
                     'resolve' => function(Model $category) {
                         return $category->getTags()->active()->all();
                     }
                 ],
                 'blocs' => [
-                    'type' => Type::listOf(Blackcube::bloc()),
+                    'type' => DefinitionType::listOf(Blackcube::bloc()),
                     'description' => Module::t('types', 'List of blocs (smallest content element) attached to the category'),
                     'resolve' => function(Model $category) {
                         return $category->getBlocs()->active()->all();
                     }
                 ],
                 'dateCreate' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' => Module::t('types', 'Creation date')
                 ],
                 'dateUpdate' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' => Module::t('types', 'Update date')
                 ]
             ],

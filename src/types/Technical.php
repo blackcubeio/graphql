@@ -2,9 +2,6 @@
 
 namespace blackcube\graphql\types;
 
-use blackcube\core\models\Composite;
-use blackcube\core\models\Language;
-use blackcube\core\models\Tag;
 use blackcube\graphql\Module;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -17,8 +14,24 @@ class Technical extends ObjectType
     {
         $config = [
             'name' => 'Technical',
-            'description' => 'Technical elements related to the CMS',
+            'description' => Module::t('types', 'Technical elements related to the CMS'),
             'fields' => [
+                'language' => [
+                    'type' => Blackcube::language(),
+                    'description' => Module::t('types', 'Return language by ID'),
+                    'args' => [
+                        'id' => DefinitionType::nonNull(DefinitionType::id()),
+                    ],
+                    'resolve' => [Language::class, 'one']
+                ],
+                'languages' => [
+                    'type' => DefinitionType::listOf(Blackcube::language()),
+                    'description' => Module::t('types', 'List of available languages'),
+                    'args' => [
+                        'pagination' => Blackcube::pagination()
+                    ],
+                    'resolve' => [Language::class, 'list']
+                ],
                 'parameter' => [
                     'type' => Blackcube::parameter(),
                     'description' => Module::t('types', 'Return parameter by domain and name'),

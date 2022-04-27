@@ -8,7 +8,7 @@ use blackcube\core\models\Tag as Model;
 use blackcube\graphql\Module;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
-use GraphQL\Type\Definition\Type;
+use GraphQL\Type\Definition\Type as DefinitionType;
 use yii\helpers\Url;
 
 class Tag extends ObjectType
@@ -20,25 +20,13 @@ class Tag extends ObjectType
             'description' => Module::t('types', 'Tag element. Tags are used to create a transversal hierarchy'),
             'fields' => [
                 'id' => [
-                    'type' => Type::id(),
+                    'type' => DefinitionType::id(),
                     'description' =>  Module::t('types', 'ID')
                 ],
                 'name' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' =>  Module::t('types', 'Name')
                 ],
-                /*/
-                'url' => [
-                    'type' => Type::string(),
-                    'description' => 'Url used to access the tag',
-                    'resolve' => function(Tag $tag) {
-                        if ($tag->slugId !== null) {
-                            return Url::toRoute($tag->getRoute(), true);
-                        }
-                        return null;
-                    }
-                ],
-                /**/
                 'language' => [
                     'type' => function() { return Blackcube::language(); },
                     'description' =>  Module::t('types', 'Language of the tag'),
@@ -49,9 +37,12 @@ class Tag extends ObjectType
                 'type' => [
                     'type' => function() { return Blackcube::type(); },
                     'description' =>  Module::t('types', 'Type of the tag'),
-                    'resolve' => function(Model $tag) {
-                        return $tag->getType()->one();
-                    }
+                    'resolve' => [Type::class, 'retrieve'],
+                ],
+                'slug' => [
+                    'type' => function() { return Blackcube::slug(); },
+                    'description' => Module::t('types', 'Slug of the tag'),
+                    'resolve' => [Slug::class, 'retrieve'],
                 ],
                 'category' => [
                     'type' => function() { return Blackcube::category(); },
@@ -61,32 +52,32 @@ class Tag extends ObjectType
                     }
                 ],
                 'composites' => [
-                    'type' => function() { return Type::listOf(Blackcube::composite()); },
+                    'type' => function() { return DefinitionType::listOf(Blackcube::composite()); },
                     'description' =>  Module::t('types', 'List of composites (articles) attached to the tag'),
                     'resolve' => function(Model $tag) {
                         return $tag->getComposites()->active()->all();
                     }
                 ],
                 'nodes' => [
-                    'type' => function() { return Type::listOf(Blackcube::node()); },
+                    'type' => function() { return DefinitionType::listOf(Blackcube::node()); },
                     'description' => Module::t('types', 'List of nodes (rubrics) attached to the tag'),
                     'resolve' => function(Model $tag) {
                         return $tag->getNodes()->active()->all();
                     }
                 ],
                 'blocs' => [
-                    'type' => Type::listOf(Blackcube::bloc()),
+                    'type' => DefinitionType::listOf(Blackcube::bloc()),
                     'description' => Module::t('types', 'List of blocs (smallest content element) attached to the tag'),
                     'resolve' => function(Model $tag) {
                         return $tag->getBlocs()->active()->all();
                     }
                 ],
                 'dateCreate' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' =>  Module::t('types', 'Creation date')
                 ],
                 'dateUpdate' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' =>  Module::t('types', 'Update date')
                 ]
             ],

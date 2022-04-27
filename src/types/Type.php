@@ -2,6 +2,7 @@
 
 namespace blackcube\graphql\types;
 
+use blackcube\core\interfaces\ElementInterface;
 use blackcube\core\models\Type as Model;
 use blackcube\graphql\Module;
 use GraphQL\Type\Definition\ObjectType;
@@ -55,5 +56,10 @@ class Type extends ObjectType
                 $query->offset($args['pagination']['offset']);
             }
         return $query->all();
+    }
+
+    public static function retrieve(ElementInterface $element)
+    {
+        return $element->getType()->one();
     }
 }

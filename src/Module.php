@@ -15,6 +15,7 @@
 namespace blackcube\graphql;
 
 use blackcube\graphql\inputs\CompositeFilter;
+use blackcube\graphql\inputs\NodeFilter;
 use blackcube\graphql\inputs\Pagination;
 use blackcube\graphql\types\Bloc;
 use blackcube\graphql\types\Category;
@@ -23,6 +24,7 @@ use blackcube\graphql\types\Language;
 use blackcube\graphql\types\Node;
 use blackcube\graphql\types\Parameter;
 use blackcube\graphql\types\ReadQuery;
+use blackcube\graphql\types\Slug;
 use blackcube\graphql\types\Tag;
 use blackcube\graphql\types\Technical;
 use blackcube\graphql\types\Type;
@@ -83,9 +85,11 @@ class Module extends BaseModule implements BootstrapInterface
         CompositeFilter::class => CompositeFilter::class,
         Language::class => Language::class,
         Node::class => Node::class,
+        NodeFilter::class => NodeFilter::class,
         Pagination::class => Pagination::class,
         Parameter::class => Parameter::class,
         ReadQuery::class => ReadQuery::class,
+        Slug::class => Slug::class,
         Tag::class => Tag::class,
         Technical::class => Technical::class,
         Type::class => Type::class,

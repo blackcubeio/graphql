@@ -3,6 +3,7 @@
 namespace blackcube\graphql\types;
 
 use blackcube\graphql\inputs\CompositeFilter;
+use blackcube\graphql\inputs\NodeFilter;
 use blackcube\graphql\inputs\Pagination;
 use Yii;
 use Exception;
@@ -39,6 +40,11 @@ class Blackcube
         return Yii::createObject(Node::class);
     }
 
+    public static function nodeFilter()
+    {
+        return Yii::createObject(NodeFilter::class);
+    }
+
     public static function parameter()
     {
         return Yii::createObject(Parameter::class);
@@ -47,6 +53,11 @@ class Blackcube
     public static function readQuery()
     {
         return Yii::createObject(ReadQuery::class);
+    }
+
+    public static function slug()
+    {
+        return Yii::createObject(Slug::class);
     }
 
     public static function tag()

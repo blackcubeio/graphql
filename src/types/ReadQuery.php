@@ -13,21 +13,22 @@ class ReadQuery extends ObjectType
         parent::__construct([
             'name' => 'ReadQuery',
             'fields' => [
-                'category' => [
-                    'type' => Blackcube::category(),
-                    'description' => Module::t('types', 'Return active category by id'),
+                'node' => [
+                    'type' => Blackcube::node(),
+                    'description' => 'Return active node by id',
                     'args' => [
                         'id' => DefinitionType::nonNull(DefinitionType::id())
                     ],
-                    'resolve' => [Category::class, 'one']
+                    'resolve' => [Node::class, 'one']
                 ],
-                'categories' => [
-                    'type' => DefinitionType::listOf(Blackcube::category()),
-                    'description' => Module::t('types', 'Return active categories'),
+                'nodes' => [
+                    'type' => DefinitionType::listOf(Blackcube::node()),
+                    'description' => 'Return active nodes',
                     'args' => [
-                        'pagination' => Blackcube::pagination()
+                        'pagination' => Blackcube::pagination(),
+                        'filters' => Blackcube::nodeFilter(),
                     ],
-                    'resolve' => [Category::class, 'list']
+                    'resolve' => [Node::class, 'list']
                 ],
                 'composite' => [
                     'type' => Blackcube::composite(),
@@ -46,37 +47,21 @@ class ReadQuery extends ObjectType
                     ],
                     'resolve' => [Composite::class, 'list']
                 ],
-                'language' => [
-                    'type' => Blackcube::language(),
-                    'description' => Module::t('types', 'Return language by ID'),
-                    'args' => [
-                        'id' => DefinitionType::nonNull(DefinitionType::id()),
-                    ],
-                    'resolve' => [Language::class, 'one']
-                ],
-                'languages' => [
-                    'type' => DefinitionType::listOf(Blackcube::language()),
-                    'description' => Module::t('types', 'List of available languages'),
-                    'args' => [
-                        'pagination' => Blackcube::pagination()
-                    ],
-                    'resolve' => [Language::class, 'list']
-                ],
-                'node' => [
-                    'type' => Blackcube::node(),
-                    'description' => 'Return active node by id',
+                'category' => [
+                    'type' => Blackcube::category(),
+                    'description' => Module::t('types', 'Return active category by id'),
                     'args' => [
                         'id' => DefinitionType::nonNull(DefinitionType::id())
                     ],
-                    'resolve' => [Node::class, 'one']
+                    'resolve' => [Category::class, 'one']
                 ],
-                'nodes' => [
-                    'type' => DefinitionType::listOf(Blackcube::node()),
-                    'description' => 'Return active nodes',
+                'categories' => [
+                    'type' => DefinitionType::listOf(Blackcube::category()),
+                    'description' => Module::t('types', 'Return active categories'),
                     'args' => [
                         'pagination' => Blackcube::pagination()
                     ],
-                    'resolve' => [Node::class, 'list']
+                    'resolve' => [Category::class, 'list']
                 ],
                 'tag' => [
                     'type' => Blackcube::tag(),
@@ -94,6 +79,9 @@ class ReadQuery extends ObjectType
                     ],
                     'resolve' => [Tag::class, 'list']
                 ],
+
+
+                /*/
                 'technical' => [
                     'type' => Blackcube::technical(),
                     'description' => Module::t('types', 'Return CMS technical data'),
@@ -101,75 +89,57 @@ class ReadQuery extends ObjectType
                     ]
                 ],
                 /*/
-                'node' => [
-                    'type' => Types::node(),
-                    'description' => 'Return active node by id',
+                'language' => [
+                    'type' => Blackcube::language(),
+                    'description' => Module::t('types', 'Return language by ID'),
                     'args' => [
-                        'id' => DefinitionType::nonNull(DefinitionType::id())
+                        'id' => DefinitionType::nonNull(DefinitionType::id()),
                     ],
-                    'resolve' => [NodeType::class, 'one']
-                ],
-                'nodes' => [
-                    'type' => DefinitionType::listOf(Types::node()),
-                    'description' => 'Return active nodes',
-                    'args' => [
-                        'pagination' => Types::pagination()
-                    ],
-                    'resolve' => [NodeType::class, 'list']
-                ],
-                'category' => [
-                    'type' => Types::category(),
-                    'description' => 'Return active category by id',
-                    'args' => [
-                        'id' => DefinitionType::nonNull(DefinitionType::id())
-                    ],
-                    'resolve' => [CategoryType::class, 'one']
-                ],
-                'categories' => [
-                    'type' => DefinitionType::listOf(Types::category()),
-                    'description' => 'Return active categories',
-                    'args' => [
-                        'pagination' => Types::pagination()
-                    ],
-                    'resolve' => [CategoryType::class, 'list']
-                ],
-                'bloc' => [
-                    'type' => Types::bloc(),
-                    'description' => 'Return active bloc by id',
-                    'args' => [
-                        'id' => DefinitionType::nonNull(DefinitionType::id())
-                    ],
-                    'resolve' => function($root, $args) {
-                        return Bloc::find()->active()->andWhere(['id' => $args['id']])->one();
-                    }
+                    'resolve' => [Language::class, 'one']
                 ],
                 'languages' => [
-                    'type' => DefinitionType::listOf(Types::language()),
-                    'description' => 'List of available languages',
-
+                    'type' => DefinitionType::listOf(Blackcube::language()),
+                    'description' => Module::t('types', 'List of available languages'),
                     'args' => [
-                        'pagination' => Types::pagination(),
+                        'pagination' => Blackcube::pagination()
                     ],
-                    'resolve' => [LanguageType::class, 'list']
+                    'resolve' => [Language::class, 'list']
                 ],
-                'types' => [
-                    'type' => DefinitionType::listOf(Types::type()),
-                    'description' => 'List of available element types',
-
+                'parameter' => [
+                    'type' => Blackcube::parameter(),
+                    'description' => Module::t('types', 'Return parameter by domain and name'),
                     'args' => [
-                        'pagination' => Types::pagination(),
+                        'domain' => DefinitionType::nonNull(DefinitionType::string()),
+                        'name' => DefinitionType::nonNull(DefinitionType::string()),
                     ],
-                    'resolve' => [TypeType::class, 'list']
+                    'resolve' => [Parameter::class, 'one']
                 ],
                 'parameters' => [
-                    'type' => DefinitionType::listOf(Types::parameter()),
-                    'description' => 'List of available parameters',
+                    'type' => DefinitionType::listOf(Blackcube::parameter()),
+                    'description' => Module::t('types', 'List of available parameters'),
                     'args' => [
-                        'pagination' => Types::pagination(),
+                        //'pagination' => Types::pagination(),
                     ],
-                    'resolve' => [ParameterType::class, 'list']
-                ]
+                    'resolve' => [Parameter::class, 'list']
+                ],
+                'type' => [
+                    'type' => Blackcube::type(),
+                    'description' => Module::t('types', 'Return type by ID'),
+                    'args' => [
+                        'id' => DefinitionType::nonNull(DefinitionType::id()),
+                    ],
+                    'resolve' => [Type::class, 'one']
+                ],
+                'types' => [
+                    'type' => DefinitionType::listOf(Blackcube::type()),
+                    'description' => Module::t('types', 'List of available types'),
+                    'args' => [
+                        //'pagination' => Types::pagination(),
+                    ],
+                    'resolve' => [Type::class, 'list']
+                ],
                 /**/
+
             ],
         ]);
     }

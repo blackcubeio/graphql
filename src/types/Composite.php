@@ -6,7 +6,7 @@ use blackcube\core\models\Composite as Model;
 use blackcube\graphql\Module;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
-use GraphQL\Type\Definition\Type;
+use GraphQL\Type\Definition\Type as DefinitionType;
 use yii\helpers\Url;
 
 class Composite extends ObjectType
@@ -18,11 +18,11 @@ class Composite extends ObjectType
             'description' => Module::t('types', 'Composite element. Composites are used to represent an article'),
             'fields' => [
                 'id' => [
-                    'type' => Type::id(),
+                    'type' => DefinitionType::id(),
                     'description' => Module::t('types', 'ID')
                 ],
                 'name' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' => Module::t('types', 'Name')
                 ],
                 'language' => [
@@ -35,57 +35,48 @@ class Composite extends ObjectType
                 'type' => [
                     'type' => function() { return Blackcube::type(); },
                     'description' => Module::t('types', 'Type of the composite'),
-                    'resolve' => function(Model $composite) {
-                        return $composite->getType()->one();
-                    }
+                    'resolve' => [Type::class, 'retrieve'],
                 ],
-                /*/
-                'url' => [
-                    'type' => Type::string(),
-                    'description' => 'Public URL to access the composite',
-                    'resolve' => function(Model $composite) {
-                        if ($composite->slugId !== null) {
-                            return Url::toRoute($composite->getRoute(), true);
-                        }
-                        return null;
-                    }
+                'slug' => [
+                    'type' => function() { return Blackcube::slug(); },
+                    'description' => Module::t('types', 'Slug of the composite'),
+                    'resolve' => [Slug::class, 'retrieve'],
                 ],
-                /**/
                 'nodes' => [
-                    'type' => function() { return Type::listOf(Blackcube::node()); },
+                    'type' => function() { return DefinitionType::listOf(Blackcube::node()); },
                     'description' => Module::t('types', 'Nodes linked to the composite (rubrics)'),
                     'resolve' => function(Model $composite) {
                         return $composite->getNodes()->active()->all();
                     }
                 ],
                 'tags' => [
-                    'type' => function() { return Type::listOf(Blackcube::tag()); },
+                    'type' => function() { return DefinitionType::listOf(Blackcube::tag()); },
                     'description' => Module::t('types', 'Tags attached to the composite'),
                     'resolve' => function(Model $composite) {
                         return $composite->getTags()->active()->all();
                     }
                 ],
                 'blocs' => [
-                    'type' => function() { return Type::listOf(Blackcube::bloc()); },
+                    'type' => function() { return DefinitionType::listOf(Blackcube::bloc()); },
                     'description' => Module::t('types', 'List of blocs (smallest content element) attached to the composite'),
                     'resolve' => function(Model $composite) {
                         return $composite->getBlocs()->active()->all();
                     }
                 ],
                 'dateStart' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' => Module::t('types', 'Publication starting date (used if not null)')
                 ],
                 'dateEnd' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' => Module::t('types', 'Publication ending date (used if not null)')
                 ],
                 'dateCreate' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' => Module::t('types', 'Creation date')
                 ],
                 'dateUpdate' => [
-                    'type' => Type::string(),
+                    'type' => DefinitionType::string(),
                     'description' => Module::t('types', 'Update date')
                 ]
             ],
