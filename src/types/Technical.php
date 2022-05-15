@@ -2,7 +2,7 @@
 
 namespace blackcube\graphql\types;
 
-use blackcube\graphql\Module;
+use blackcube\graphql\Plugin;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type as DefinitionType;
@@ -14,11 +14,11 @@ class Technical extends ObjectType
     {
         $config = [
             'name' => 'Technical',
-            'description' => Module::t('types', 'Technical elements related to the CMS'),
+            'description' => Plugin::t('types', 'Technical elements related to the CMS'),
             'fields' => [
                 'language' => [
                     'type' => Blackcube::language(),
-                    'description' => Module::t('types', 'Return language by ID'),
+                    'description' => Plugin::t('types', 'Return language by ID'),
                     'args' => [
                         'id' => DefinitionType::nonNull(DefinitionType::id()),
                     ],
@@ -26,7 +26,7 @@ class Technical extends ObjectType
                 ],
                 'languages' => [
                     'type' => DefinitionType::listOf(Blackcube::language()),
-                    'description' => Module::t('types', 'List of available languages'),
+                    'description' => Plugin::t('types', 'List of available languages'),
                     'args' => [
                         'pagination' => Blackcube::pagination()
                     ],
@@ -34,7 +34,7 @@ class Technical extends ObjectType
                 ],
                 'parameter' => [
                     'type' => Blackcube::parameter(),
-                    'description' => Module::t('types', 'Return parameter by domain and name'),
+                    'description' => Plugin::t('types', 'Return parameter by domain and name'),
                     'args' => [
                         'domain' => DefinitionType::nonNull(DefinitionType::string()),
                         'name' => DefinitionType::nonNull(DefinitionType::string()),
@@ -43,7 +43,7 @@ class Technical extends ObjectType
                 ],
                 'parameters' => [
                     'type' => DefinitionType::listOf(Blackcube::parameter()),
-                    'description' => Module::t('types', 'List of available parameters'),
+                    'description' => Plugin::t('types', 'List of available parameters'),
                     'args' => [
                         //'pagination' => Types::pagination(),
                     ],
@@ -51,7 +51,7 @@ class Technical extends ObjectType
                 ],
                 'type' => [
                     'type' => Blackcube::type(),
-                    'description' => Module::t('types', 'Return type by ID'),
+                    'description' => Plugin::t('types', 'Return type by ID'),
                     'args' => [
                         'id' => DefinitionType::nonNull(DefinitionType::id()),
                     ],
@@ -59,7 +59,7 @@ class Technical extends ObjectType
                 ],
                 'types' => [
                     'type' => DefinitionType::listOf(Blackcube::type()),
-                    'description' => Module::t('types', 'List of available types'),
+                    'description' => Plugin::t('types', 'List of available types'),
                     'args' => [
                         //'pagination' => Types::pagination(),
                     ],

@@ -2,7 +2,7 @@
 
 namespace blackcube\graphql\inputs;
 
-use blackcube\graphql\Module;
+use blackcube\graphql\Plugin;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\Type;
 use yii\helpers\ArrayHelper;
@@ -16,12 +16,12 @@ class Pagination extends InputObjectType
             'fields' => [
                 'size' => [
                     'type' => Type::int(),
-                    'description' => Module::t('types', 'Page size'),
+                    'description' => Plugin::t('types', 'Page size'),
                     'defaultValue' => 10
                 ],
                 'offset' => [
                     'type' => Type::int(),
-                    'description' => Module::t('types', 'Offset'),
+                    'description' => Plugin::t('types', 'Offset'),
                     'defaultValue' => 0
                 ],
             ]

@@ -4,7 +4,7 @@ namespace blackcube\graphql\types;
 
 use blackcube\core\models\Category as Model;
 use blackcube\core\models\Composite;
-use blackcube\graphql\Module;
+use blackcube\graphql\Plugin;
 use blackcube\graphql\types\Blackcube;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type as DefinitionType;
@@ -15,55 +15,55 @@ class Category extends ObjectType
     {
         $config = [
             'name' => 'Category',
-            'description' => Module::t('types', 'Category element. Categories are used for transversal hierarchy'),
+            'description' => Plugin::t('types', 'Category element. Categories are used for transversal hierarchy'),
             'fields' => [
                 'id' => [
                     'type' => DefinitionType::id(),
-                    'description' => Module::t('types', 'ID')
+                    'description' => Plugin::t('types', 'ID')
                 ],
                 'name' => [
                     'type' => DefinitionType::string(),
-                    'description' => Module::t('types', 'Name')
+                    'description' => Plugin::t('types', 'Name')
                 ],
                 'language' => [
                     'type' => function() { return Blackcube::language(); },
-                    'description' => Module::t('types', 'Language of the category'),
+                    'description' => Plugin::t('types', 'Language of the category'),
                     'resolve' => function(Model $category) {
                         return $category->getLanguage()->one();
                     }
                 ],
                 'type' => [
                     'type' => function() { return Blackcube::type(); },
-                    'description' => Module::t('types', 'Type of the category'),
+                    'description' => Plugin::t('types', 'Type of the category'),
                     'resolve' => [Type::class, 'retrieve'],
                 ],
                 'slug' => [
                     'type' => function() { return Blackcube::slug(); },
-                    'description' => Module::t('types', 'Slug of the category'),
+                    'description' => Plugin::t('types', 'Slug of the category'),
                     'resolve' => [Slug::class, 'retrieve'],
                 ],
 
                 'tags' => [
                     'type' => function() { return DefinitionType::listOf(Blackcube::tag()); },
-                    'description' => Module::t('types', 'Tags attached to the category'),
+                    'description' => Plugin::t('types', 'Tags attached to the category'),
                     'resolve' => function(Model $category) {
                         return $category->getTags()->active()->all();
                     }
                 ],
                 'blocs' => [
                     'type' => DefinitionType::listOf(Blackcube::bloc()),
-                    'description' => Module::t('types', 'List of blocs (smallest content element) attached to the category'),
+                    'description' => Plugin::t('types', 'List of blocs (smallest content element) attached to the category'),
                     'resolve' => function(Model $category) {
                         return $category->getBlocs()->active()->all();
                     }
                 ],
                 'dateCreate' => [
                     'type' => DefinitionType::string(),
-                    'description' => Module::t('types', 'Creation date')
+                    'description' => Plugin::t('types', 'Creation date')
                 ],
                 'dateUpdate' => [
                     'type' => DefinitionType::string(),
-                    'description' => Module::t('types', 'Update date')
+                    'description' => Plugin::t('types', 'Update date')
                 ]
             ],
         ];

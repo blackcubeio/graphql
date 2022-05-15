@@ -4,7 +4,7 @@ namespace blackcube\graphql\types;
 
 use blackcube\core\models\Composite;
 use blackcube\core\models\Node as Model;
-use blackcube\graphql\Module;
+use blackcube\graphql\Plugin;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type as DefinitionType;
@@ -17,76 +17,76 @@ class Node extends ObjectType
     {
         $config = [
             'name' => 'Node',
-            'description' => Module::t('types', 'Node contents'),
+            'description' => Plugin::t('types', 'Node contents'),
             'fields' => [
                 'id' => [
                     'type' => DefinitionType::id(),
-                    'description' => Module::t('types', 'ID')
+                    'description' => Plugin::t('types', 'ID')
                 ],
                 'name' => [
                     'type' => DefinitionType::string(),
-                    'description' => Module::t('types', 'Name')
+                    'description' => Plugin::t('types', 'Name')
                 ],
                 'level' => [
                     'type' => DefinitionType::int(),
-                    'description' => Module::t('types', 'Level')
+                    'description' => Plugin::t('types', 'Level')
                 ],
                 'path' => [
                     'type' => DefinitionType::string(),
-                    'description' => Module::t('types', 'Path')
+                    'description' => Plugin::t('types', 'Path')
                 ],
                 'language' => [
                     'type' => function() { return Blackcube::language(); },
-                    'description' => Module::t('types', 'Language of the node (rubric)'),
+                    'description' => Plugin::t('types', 'Language of the node (rubric)'),
                     'resolve' => function(Model $node) {
                         return $node->getLanguage()->one();
                     }
                 ],
                 'type' => [
                     'type' => function() { return Blackcube::type(); },
-                    'description' => Module::t('types','Type of the node (rubric)'),
+                    'description' => Plugin::t('types','Type of the node (rubric)'),
                     'resolve' => [Type::class, 'retrieve'],
                 ],
                 'slug' => [
                     'type' => function() { return Blackcube::slug(); },
-                    'description' => Module::t('types', 'Slug of the node (rubric)'),
+                    'description' => Plugin::t('types', 'Slug of the node (rubric)'),
                     'resolve' => [Slug::class, 'retrieve'],
                 ],
                 'composites' => [
                     'type' => function() { return DefinitionType::listOf(Blackcube::composite()); },
-                    'description' => Module::t('types','Composites attached to the node (rubric)'),
+                    'description' => Plugin::t('types','Composites attached to the node (rubric)'),
                     'resolve' => function(Model $node) {
                         return $node->getComposites()->active()->all();
                     }
                 ],
                 'nodes' => [
                     'type' => function() { return DefinitionType::listOf(Blackcube::node()); },
-                    'description' => Module::t('types','Children of the node (rubric)'),
+                    'description' => Plugin::t('types','Children of the node (rubric)'),
                     'resolve' => function(Model $node) {
                         return $node->getChildren()->active()->all();
                     }
                 ],
                 'tags' => [
                     'type' => function() { return DefinitionType::listOf(Blackcube::tag()); },
-                    'description' => Module::t('types','Tags attached to the node (rubric)'),
+                    'description' => Plugin::t('types','Tags attached to the node (rubric)'),
                     'resolve' => function(Model $node) {
                         return $node->getTags()->active()->all();
                     }
                 ],
                 'blocs' => [
                     'type' => DefinitionType::listOf(Blackcube::bloc()),
-                    'description' => Module::t('types', 'List of blocs (smallest content element) attached to the node (rubric)'),
+                    'description' => Plugin::t('types', 'List of blocs (smallest content element) attached to the node (rubric)'),
                     'resolve' => function(Model $node) {
                         return $node->getBlocs()->all();
                     }
                 ],
                 'dateCreate' => [
                     'type' => DefinitionType::string(),
-                    'description' => Module::t('types','Creation date')
+                    'description' => Plugin::t('types','Creation date')
                 ],
                 'dateUpdate' => [
                     'type' => DefinitionType::string(),
-                    'description' => Module::t('types','Update date')
+                    'description' => Plugin::t('types','Update date')
                 ]
             ],
         ];

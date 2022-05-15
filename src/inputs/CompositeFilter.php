@@ -2,7 +2,7 @@
 
 namespace blackcube\graphql\inputs;
 
-use blackcube\graphql\Module;
+use blackcube\graphql\Plugin;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\Type;
 use yii\helpers\ArrayHelper;
@@ -16,11 +16,11 @@ class CompositeFilter extends InputObjectType
             'fields' => [
                 'typeId' => [
                     'type' => Type::int(),
-                    'description' => Module::t('types', 'Type of the composite')
+                    'description' => Plugin::t('types', 'Type of the composite')
                 ],
                 'languageId' => [
                     'type' => Type::string(),
-                    'description' => Module::t('types', 'Language used')
+                    'description' => Plugin::t('types', 'Language used')
                 ],
 
             ]

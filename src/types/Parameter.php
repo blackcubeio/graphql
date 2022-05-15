@@ -3,7 +3,7 @@
 namespace blackcube\graphql\types;
 
 use blackcube\core\models\Parameter as Model;
-use blackcube\graphql\Module;
+use blackcube\graphql\Plugin;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
@@ -13,27 +13,27 @@ class Parameter extends ObjectType
     {
         $config = [
             'name' => 'Parameter',
-            'description' => Module::t('types', 'Parameter CMS wide'),
+            'description' => Plugin::t('types', 'Parameter CMS wide'),
             'fields' => [
                 'domain' => [
                     'type' => Type::string(),
-                    'description' => Module::t('types', 'Domain')
+                    'description' => Plugin::t('types', 'Domain')
                 ],
                 'name' => [
                     'type' => Type::string(),
-                    'description' => Module::t('types', 'Name')
+                    'description' => Plugin::t('types', 'Name')
                 ],
                 'value' => [
                     'type' => Type::string(),
-                    'description' => Module::t('types', 'Value')
+                    'description' => Plugin::t('types', 'Value')
                 ],
                 'dateCreate' => [
                     'type' => Type::string(),
-                    'description' => Module::t('types', 'Creation date')
+                    'description' => Plugin::t('types', 'Creation date')
                 ],
                 'dateUpdate' => [
                     'type' => Type::string(),
-                    'description' => Module::t('types', 'Update date')
+                    'description' => Plugin::t('types', 'Update date')
                 ]
             ],
         ];

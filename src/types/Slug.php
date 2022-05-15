@@ -8,7 +8,7 @@ use blackcube\core\models\Category;
 use blackcube\core\models\Composite;
 use blackcube\core\models\Slug as Model;
 use blackcube\core\web\helpers\Html;
-use blackcube\graphql\Module;
+use blackcube\graphql\Plugin;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
@@ -20,19 +20,19 @@ class Slug extends ObjectType
     {
         $config = [
             'name' => 'Slug',
-            'description' => Module::t('types', 'Slug element. Slugs are used to map elements to URLs'),
+            'description' => Plugin::t('types', 'Slug element. Slugs are used to map elements to URLs'),
             'fields' => [
                 'id' => [
                     'type' => Type::id(),
-                    'description' =>  Module::t('types', 'ID')
+                    'description' =>  Plugin::t('types', 'ID')
                 ],
                 'host' => [
                     'type' => Type::string(),
-                    'description' =>  Module::t('types', 'Host')
+                    'description' =>  Plugin::t('types', 'Host')
                 ],
                 'url' => [
                     'type' => Type::string(),
-                    'description' =>  Module::t('types', 'Url'),
+                    'description' =>  Plugin::t('types', 'Url'),
                     'resolve' => static function($object, $args) {
                         if($object->path !== null) {
                             $protocol = \Yii::$app->request->isSecureConnection ? 'https':'http';
@@ -45,11 +45,11 @@ class Slug extends ObjectType
                 ],
                 'dateCreate' => [
                     'type' => Type::string(),
-                    'description' =>  Module::t('types', 'Creation date')
+                    'description' =>  Plugin::t('types', 'Creation date')
                 ],
                 'dateUpdate' => [
                     'type' => Type::string(),
-                    'description' =>  Module::t('types', 'Update date')
+                    'description' =>  Plugin::t('types', 'Update date')
                 ]
             ],
         ];

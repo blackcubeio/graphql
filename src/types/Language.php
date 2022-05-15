@@ -3,7 +3,7 @@
 namespace blackcube\graphql\types;
 
 use blackcube\core\models\Language as Model;
-use blackcube\graphql\Module;
+use blackcube\graphql\Plugin;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
@@ -13,27 +13,27 @@ class Language extends ObjectType
     {
         $config = [
             'name' => 'Language',
-            'description' => Module::t('types', 'Language details'),
+            'description' => Plugin::t('types', 'Language details'),
             'fields' => [
                 'id' => [
                     'type' => Type::id(),
-                    'description' => Module::t('types', 'ID')
+                    'description' => Plugin::t('types', 'ID')
                 ],
                 'name' => [
                     'type' => Type::string(),
-                    'description' => Module::t('types', 'Name')
+                    'description' => Plugin::t('types', 'Name')
                 ],
                 'main' => [
                     'type' => Type::boolean(),
-                    'description' => Module::t('types', 'true if it\'s a main language')
+                    'description' => Plugin::t('types', 'true if it\'s a main language')
                 ],
                 'dateCreate' => [
                     'type' => Type::string(),
-                    'description' => Module::t('types', 'Creation date')
+                    'description' => Plugin::t('types', 'Creation date')
                 ],
                 'dateUpdate' => [
                     'type' => Type::string(),
-                    'description' => Module::t('types', 'Update date')
+                    'description' => Plugin::t('types', 'Update date')
                 ]
             ],
         ];

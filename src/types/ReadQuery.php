@@ -2,7 +2,7 @@
 
 namespace blackcube\graphql\types;
 
-use blackcube\graphql\Module;
+use blackcube\graphql\Plugin;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type as DefinitionType;
 
@@ -32,7 +32,7 @@ class ReadQuery extends ObjectType
                 ],
                 'composite' => [
                     'type' => Blackcube::composite(),
-                    'description' => Module::t('types', 'Return active composite by id'),
+                    'description' => Plugin::t('types', 'Return active composite by id'),
                     'args' => [
                         'id' => DefinitionType::nonNull(DefinitionType::id())
                     ],
@@ -40,7 +40,7 @@ class ReadQuery extends ObjectType
                 ],
                 'composites' => [
                     'type' => DefinitionType::listOf(Blackcube::composite()),
-                    'description' => Module::t('types', 'Return active composites'),
+                    'description' => Plugin::t('types', 'Return active composites'),
                     'args' => [
                         'pagination' => Blackcube::pagination(),
                         'filters' => Blackcube::compositeFilter(),
@@ -49,7 +49,7 @@ class ReadQuery extends ObjectType
                 ],
                 'category' => [
                     'type' => Blackcube::category(),
-                    'description' => Module::t('types', 'Return active category by id'),
+                    'description' => Plugin::t('types', 'Return active category by id'),
                     'args' => [
                         'id' => DefinitionType::nonNull(DefinitionType::id())
                     ],
@@ -57,7 +57,7 @@ class ReadQuery extends ObjectType
                 ],
                 'categories' => [
                     'type' => DefinitionType::listOf(Blackcube::category()),
-                    'description' => Module::t('types', 'Return active categories'),
+                    'description' => Plugin::t('types', 'Return active categories'),
                     'args' => [
                         'pagination' => Blackcube::pagination()
                     ],
@@ -65,7 +65,7 @@ class ReadQuery extends ObjectType
                 ],
                 'tag' => [
                     'type' => Blackcube::tag(),
-                    'description' => Module::t('types', 'Return active tag by id'),
+                    'description' => Plugin::t('types', 'Return active tag by id'),
                     'args' => [
                         'id' => DefinitionType::nonNull(DefinitionType::id())
                     ],
@@ -73,7 +73,7 @@ class ReadQuery extends ObjectType
                 ],
                 'tags' => [
                     'type' => DefinitionType::listOf(Blackcube::tag()),
-                    'description' => Module::t('types', 'Return active tags'),
+                    'description' => Plugin::t('types', 'Return active tags'),
                     'args' => [
                         'pagination' => Blackcube::pagination()
                     ],
@@ -84,14 +84,14 @@ class ReadQuery extends ObjectType
                 /*/
                 'technical' => [
                     'type' => Blackcube::technical(),
-                    'description' => Module::t('types', 'Return CMS technical data'),
+                    'description' => Plugin::t('types', 'Return CMS technical data'),
                     'args' => [
                     ]
                 ],
                 /*/
                 'language' => [
                     'type' => Blackcube::language(),
-                    'description' => Module::t('types', 'Return language by ID'),
+                    'description' => Plugin::t('types', 'Return language by ID'),
                     'args' => [
                         'id' => DefinitionType::nonNull(DefinitionType::id()),
                     ],
@@ -99,7 +99,7 @@ class ReadQuery extends ObjectType
                 ],
                 'languages' => [
                     'type' => DefinitionType::listOf(Blackcube::language()),
-                    'description' => Module::t('types', 'List of available languages'),
+                    'description' => Plugin::t('types', 'List of available languages'),
                     'args' => [
                         'pagination' => Blackcube::pagination()
                     ],
@@ -107,7 +107,7 @@ class ReadQuery extends ObjectType
                 ],
                 'parameter' => [
                     'type' => Blackcube::parameter(),
-                    'description' => Module::t('types', 'Return parameter by domain and name'),
+                    'description' => Plugin::t('types', 'Return parameter by domain and name'),
                     'args' => [
                         'domain' => DefinitionType::nonNull(DefinitionType::string()),
                         'name' => DefinitionType::nonNull(DefinitionType::string()),
@@ -116,7 +116,7 @@ class ReadQuery extends ObjectType
                 ],
                 'parameters' => [
                     'type' => DefinitionType::listOf(Blackcube::parameter()),
-                    'description' => Module::t('types', 'List of available parameters'),
+                    'description' => Plugin::t('types', 'List of available parameters'),
                     'args' => [
                         //'pagination' => Types::pagination(),
                     ],
@@ -124,7 +124,7 @@ class ReadQuery extends ObjectType
                 ],
                 'type' => [
                     'type' => Blackcube::type(),
-                    'description' => Module::t('types', 'Return type by ID'),
+                    'description' => Plugin::t('types', 'Return type by ID'),
                     'args' => [
                         'id' => DefinitionType::nonNull(DefinitionType::id()),
                     ],
@@ -132,7 +132,7 @@ class ReadQuery extends ObjectType
                 ],
                 'types' => [
                     'type' => DefinitionType::listOf(Blackcube::type()),
-                    'description' => Module::t('types', 'List of available types'),
+                    'description' => Plugin::t('types', 'List of available types'),
                     'args' => [
                         //'pagination' => Types::pagination(),
                     ],

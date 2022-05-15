@@ -2,7 +2,7 @@
 
 namespace blackcube\graphql\inputs;
 
-use blackcube\graphql\Module;
+use blackcube\graphql\Plugin;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\Type;
 use yii\helpers\ArrayHelper;
@@ -16,15 +16,15 @@ class NodeFilter extends InputObjectType
             'fields' => [
                 'level' => [
                     'type' => Type::int(),
-                    'description' => Module::t('types', 'Level'),
+                    'description' => Plugin::t('types', 'Level'),
                 ],
                 'typeId' => [
                     'type' => Type::int(),
-                    'description' => Module::t('types','Type of the node (rubric)'),
+                    'description' => Plugin::t('types','Type of the node (rubric)'),
                 ],
                 'languageId' => [
                     'type' => Type::string(),
-                    'description' => Module::t('types', 'Language used')
+                    'description' => Plugin::t('types', 'Language used')
                 ],
 
             ]

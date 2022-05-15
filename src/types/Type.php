@@ -4,7 +4,7 @@ namespace blackcube\graphql\types;
 
 use blackcube\core\interfaces\ElementInterface;
 use blackcube\core\models\Type as Model;
-use blackcube\graphql\Module;
+use blackcube\graphql\Plugin;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type as DefinitionType;
 
@@ -14,27 +14,27 @@ class Type extends ObjectType
     {
         $config = [
             'name' => 'Type',
-            'description' => Module::t('types', 'Type of elements. It describe the main type of an element and the route used (if available)'),
+            'description' => Plugin::t('types', 'Type of elements. It describe the main type of an element and the route used (if available)'),
             'fields' => [
                 'id' => [
                     'type' => DefinitionType::id(),
-                    'description' => Module::t('types', 'ID')
+                    'description' => Plugin::t('types', 'ID')
                 ],
                 'name' => [
                     'type' => DefinitionType::string(),
-                    'description' => Module::t('types', 'Name')
+                    'description' => Plugin::t('types', 'Name')
                 ],
                 'route' => [
                     'type' => DefinitionType::id(),
-                    'description' => Module::t('types', 'Route')
+                    'description' => Plugin::t('types', 'Route')
                 ],
                 'dateCreate' => [
                     'type' => DefinitionType::string(),
-                    'description' => Module::t('types', 'Creation date')
+                    'description' => Plugin::t('types', 'Creation date')
                 ],
                 'dateUpdate' => [
                     'type' => DefinitionType::string(),
-                    'description' => Module::t('types', 'Update date')
+                    'description' => Plugin::t('types', 'Update date')
                 ]
             ],
         ];
