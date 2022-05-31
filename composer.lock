@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blackcubeio/admin.git",
-                "reference": "00c55b53cc9b09c72b3c00be7828afd1883e9de6"
+                "reference": "0a6679b113e3a973994860dd9dc5beb8a53b5b06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blackcubeio/admin/zipball/00c55b53cc9b09c72b3c00be7828afd1883e9de6",
-                "reference": "00c55b53cc9b09c72b3c00be7828afd1883e9de6",
+                "url": "https://api.github.com/repos/blackcubeio/admin/zipball/0a6679b113e3a973994860dd9dc5beb8a53b5b06",
+                "reference": "0a6679b113e3a973994860dd9dc5beb8a53b5b06",
                 "shasum": ""
             },
             "require": {
@@ -77,7 +77,7 @@
                 "source": "https://code.redcat.io/blackcube/admin/tree/devel",
                 "wiki": "https://code.redcat.io/blackcube/admin/wikis/home"
             },
-            "time": "2022-05-31T07:37:21+00:00"
+            "time": "2022-05-31T08:05:40+00:00"
         },
         {
             "name": "blackcube/core",
@@ -85,12 +85,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blackcubeio/core.git",
-                "reference": "1133552e3e3d2d74c6447228d88945d56286b8f0"
+                "reference": "05c1a0fd5c7d86ae42b7938243fc443165e83a49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blackcubeio/core/zipball/1133552e3e3d2d74c6447228d88945d56286b8f0",
-                "reference": "1133552e3e3d2d74c6447228d88945d56286b8f0",
+                "url": "https://api.github.com/repos/blackcubeio/core/zipball/05c1a0fd5c7d86ae42b7938243fc443165e83a49",
+                "reference": "05c1a0fd5c7d86ae42b7938243fc443165e83a49",
                 "shasum": ""
             },
             "require": {
@@ -156,7 +156,7 @@
                 "source": "https://code.redcat.io/blackcube/core/tree/devel",
                 "wiki": "https://code.redcat.io/blackcube/core/wikis/home"
             },
-            "time": "2022-05-31T07:32:17+00:00"
+            "time": "2022-05-31T08:03:26+00:00"
         },
         {
             "name": "bower-asset/inputmask",
