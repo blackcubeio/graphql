@@ -1,13 +1,36 @@
 <?php
+/**
+ * Blackcube.php
+ *
+ * PHP version 7.4+
+ *
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2022 Redcat
+ * @license https://www.redcat.io/license license
+ * @version XXX
+ * @link https://www.redcat.io
+ * @package blackcube\plugins\graphql\types
+ */
 
-namespace blackcube\graphql\types;
+namespace blackcube\plugins\graphql\types;
 
-use blackcube\graphql\inputs\CompositeFilter;
-use blackcube\graphql\inputs\NodeFilter;
-use blackcube\graphql\inputs\Pagination;
+use blackcube\plugins\graphql\inputs\CompositeFilter;
+use blackcube\plugins\graphql\inputs\NodeFilter;
+use blackcube\plugins\graphql\inputs\Pagination;
 use Yii;
 use Exception;
 
+/**
+ * Class Blackcube
+ *
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2022 Redcat
+ * @license https://www.redcat.io/license license
+ * @version XXX
+ * @link https://www.redcat.io
+ * @package blackcube\plugins\graphql\types
+ * @since XXX
+ */
 class Blackcube
 {
     public static function bloc()

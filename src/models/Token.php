@@ -1,6 +1,18 @@
 <?php
+/**
+ * Token.php
+ *
+ * PHP version 7.4+
+ *
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2022 Redcat
+ * @license https://www.redcat.io/license license
+ * @version XXX
+ * @link https://www.redcat.io
+ * @package blackcube\plugins\graphql\models
+ */
 
-namespace blackcube\graphql\models;
+namespace blackcube\plugins\graphql\models;
 
 use blackcube\core\Module;
 use Yii;
@@ -10,6 +22,13 @@ use yii\helpers\Json;
 
 /**
  * This is the model class for table "graphql_tokens".
+ *
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2022 Redcat
+ * @license https://www.redcat.io/license license
+ * @version XXX
+ * @link https://www.redcat.io
+ * @package blackcube\plugins\graphql\models
  *
  * @property string $id
  * @property string|null $auth

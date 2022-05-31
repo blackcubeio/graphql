@@ -9,53 +9,53 @@
  * @license https://www.redcat.io/license license
  * @version XXX
  * @link https://www.redcat.io
- * @package blackcube\graphql
+ * @package blackcube\plugins\graphql
  */
 
-namespace blackcube\graphql;
+namespace blackcube\plugins\graphql;
 
-use blackcube\admin\interfaces\PluginBootstrapInterface as PluginAdminBootstrapInterface;
+use blackcube\admin\interfaces\PluginManagerBootstrapInterface as PluginAdminBootstrapInterface;
 use blackcube\admin\interfaces\RbacableInterface;
 use blackcube\core\interfaces\ElementInterface;
-use blackcube\core\interfaces\PluginBootstrapInterface as PluginCoreBootstrapInterface;
+use blackcube\core\interfaces\PluginManagerBootstrapInterface as PluginCoreBootstrapInterface;
 use blackcube\admin\Module as AdminModule;
 use blackcube\core\interfaces\PluginManagerConfigurableInterface;
 use blackcube\core\interfaces\PluginManagerInterface;
 use blackcube\core\Module as CoreModule;
 use blackcube\core\traits\PluginManagerMigrableTrait;
-use blackcube\core\traits\PluginManagerTrait;
-use blackcube\graphql\components\Rbac;
-use blackcube\graphql\controllers\ConfigureController;
-use blackcube\graphql\controllers\GraphqlController;
-use blackcube\graphql\inputs\CompositeFilter;
-use blackcube\graphql\inputs\NodeFilter;
-use blackcube\graphql\inputs\Pagination;
-use blackcube\graphql\types\Bloc;
-use blackcube\graphql\types\Category;
-use blackcube\graphql\types\Composite;
-use blackcube\graphql\types\Language;
-use blackcube\graphql\types\Node;
-use blackcube\graphql\types\Parameter;
-use blackcube\graphql\types\ReadQuery;
-use blackcube\graphql\types\Slug;
-use blackcube\graphql\types\Tag;
-use blackcube\graphql\types\Technical;
-use blackcube\graphql\types\Type;
+use yii\base\Application;
 use yii\base\BootstrapInterface;
-use yii\base\Exception;
-use yii\base\Module as BaseModule;
-use yii\caching\CacheInterface;
-use yii\db\Connection;
-use yii\di\Instance;
+use yii\base\Event;
+use yii\base\Module;
+use blackcube\plugins\graphql\components\Rbac;
+use blackcube\plugins\graphql\controllers\ConfigureController;
+use blackcube\plugins\graphql\controllers\GraphqlController;
+use blackcube\plugins\graphql\inputs\CompositeFilter;
+use blackcube\plugins\graphql\inputs\NodeFilter;
+use blackcube\plugins\graphql\inputs\Pagination;
+use blackcube\plugins\graphql\types\Bloc;
+use blackcube\plugins\graphql\types\Category;
+use blackcube\plugins\graphql\types\Composite;
+use blackcube\plugins\graphql\types\Language;
+use blackcube\plugins\graphql\types\Node;
+use blackcube\plugins\graphql\types\Parameter;
+use blackcube\plugins\graphql\types\ReadQuery;
+use blackcube\plugins\graphql\types\Slug;
+use blackcube\plugins\graphql\types\Tag;
+use blackcube\plugins\graphql\types\Technical;
+use blackcube\plugins\graphql\types\Type;
 use yii\helpers\Json;
 use yii\i18n\GettextMessageSource;
-use yii\web\Application;
 use yii\web\Application as WebApplication;
+use yii\web\Controller;
 use yii\web\ErrorHandler;
 use yii\web\UrlRule;
 use yii\web\GroupUrlRule;
 use yii\console\Application as ConsoleApplication;
+use blackcube\plugins\graphql\AdminModule as PluginAdminModule;
+use blackcube\plugins\graphql\CoreModule as PluginCoreModule;
 use Yii;
+use yii\web\View;
 
 /**
  * Class Plugin
@@ -65,90 +65,27 @@ use Yii;
  * @license https://www.redcat.io/license license
  * @version XXX
  * @link https://www.redcat.io
- * @package blackcube\graphql
+ * @package blackcube\plugins\graphql
  *
  */
-class Plugin implements PluginManagerInterface, PluginCoreBootstrapInterface, PluginAdminBootstrapInterface, RbacableInterface, PluginManagerConfigurableInterface// implements /*/RbacableInterface, /**/ /*/ PluginBootstrapCoreInterface, PluginBootstrapAdminInterface, PluginManagerConfigurableInterface/**/
+class Plugin implements PluginManagerInterface,
+    PluginCoreBootstrapInterface,
+    PluginAdminBootstrapInterface,
+    PluginManagerConfigurableInterface,
+    RbacableInterface
 {
     use PluginManagerMigrableTrait {
-        PluginManagerMigrableTrait::registerDbPlugin as originalRegisterDbPlugin;
+        // PluginManagerMigrableTrait::registerDbPlugin as originalRegisterDbPlugin;
     }
-
-    const MODE_FRONT = 'front';
-    const MODE_ADMIN = 'admin';
-
-    private static $pluginId;
-    private $_coreModuleId;
-
-    public $mode = self::MODE_FRONT;
-
-    public function __construct(string $id)
-    {
-        self::$pluginId = $id;
-        $this->init();
-    }
-
-    public function setAlias() :void
-    {
-        Yii::setAlias('@blackcube/graphql', __DIR__);
-    }
-
-    public function getId()
-    {
-        return self::$pluginId;
-    }
-
-    public static function getStaticId()
-    {
-        return self::$pluginId;
-    }
-
-    public function getName() :string
-    {
-        return 'Plugin Graphql';
-    }
-
-    public function getVersion() :string
-    {
-        return '1.0.0';
-    }
-
-    public function getIsCompatible() :bool
-    {
-        return true;
-    }
-
-    public function upgrade() :bool
-    {
-        return true;
-    }
-
-    public static function getRbacClass()
-    {
-        return Rbac::class;
-    }
-
-    public function registerDbPlugin(): bool
-    {
-        $status = $this->originalRegisterDbPlugin();
-        if ($this instanceof PluginAdminBootstrapInterface) {
-            $this->bootstrapAdmin(AdminModule::getInstance()->getUniqueId(), Yii::$app);
-        }
-        if ($this instanceof PluginCoreBootstrapInterface) {
-            $this->bootstrapCore(CoreModule::getInstance()->getUniqueId(), Yii::$app);
-        }
-        return $status;
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public $controllerNamespace = 'blackcube\graphql\controllers';
-
     /**
      * @var string version number
      */
-    public $version = 'v3.0-dev';
-
+    private $_version = 'v3.0-dev';
+    private $_pluginId;
+    private static $_instance;
+    private $configureRoute;
+    private $pluginCoreModule;
+    private $pluginAdminModule;
     /**
      * @var string[]
      */
@@ -175,12 +112,102 @@ class Plugin implements PluginManagerInterface, PluginCoreBootstrapInterface, Pl
     public $coreElements = [
     ];
 
+    public static function getInstance()
+    {
+        return self::$_instance;
+    }
+
+    public function __construct(string $id)
+    {
+        $this->_pluginId = $id;
+        self::$_instance = $this;
+        $this->init();
+    }
+
+    public function setAlias() :void
+    {
+        Yii::setAlias('@blackcube/plugins/graphql', __DIR__);
+    }
+
+    public function getId() :string
+    {
+        return $this->_pluginId;
+    }
+
+    public function getName() :string
+    {
+        return 'Plugin Graphql';
+    }
+
+    public function getVersion() :string
+    {
+        return $this->_version;
+    }
+
+    public function getIsCompatible() :bool
+    {
+        return true;
+    }
+
+    public static function getRbacClass()
+    {
+        return Rbac::class;
+    }
+
+    public function getPluginCoreModule()
+    {
+        return $this->pluginCoreModule;
+    }
+
+    public function registerPluginCoreModule(Module $coreModule)
+    {
+        if($this->pluginCoreModule === null) {
+            $this->pluginCoreModule = Yii::createObject([
+                'class' => PluginCoreModule::class,
+            ], [$this->getId(), Yii::$app]);
+            // $coreModule->setModule($this->getId(), $this->pluginCoreModule);
+            Yii::$app->setModule($this->getId(), $this->pluginCoreModule);
+        }
+    }
+
+    public function getPluginAdminModule()
+    {
+        return $this->pluginAdminModule;
+    }
+
+    public function registerPluginAdminModule(Module $adminModule)
+    {
+        if($this->pluginAdminModule === null) {
+            $this->pluginAdminModule = Yii::createObject([
+                'class' => PluginAdminModule::class,
+            ], [$this->getId(), $adminModule]);
+            $adminModule->setModule($this->getId(), $this->pluginAdminModule);
+        }
+    }
+
+    /*/
+    public function registerDbPlugin(): bool
+    {
+        $status = $this->originalRegisterDbPlugin();
+        // rebootstrap modules
+        if ($this->getPluginCoreModule() instanceof PluginCoreBootstrapInterface) {
+            $this->bootstrapCore(CoreModule::getInstance(), Yii::$app);
+        }
+        if ($this->getPluginAdminModule() instanceof PluginAdminBootstrapInterface) {
+            $this->bootstrapAdmin(AdminModule::getInstance(), Yii::$app);
+        }
+
+        return $status;
+    }
+    /**/
+
+
     /**
      * @inheritdoc
      */
     public function init()
     {
-        $this->migrationsNamespace = 'blackcube\\graphql\\migrations';
+        $this->migrationsNamespace = 'blackcube\\plugins\\graphql\\migrations';
 
         //TODO: should inherit db from Core
         // $this->registerErrorHandler();
@@ -189,95 +216,43 @@ class Plugin implements PluginManagerInterface, PluginCoreBootstrapInterface, Pl
         $this->registerTranslations();
     }
 
-    public function bootstrapAdmin($moduleUid, $app)
+    public function bootstrapAdmin(AdminModule $adminModule, Application $app)
     {
-        $boModule = Yii::$app->getModule($moduleUid);
-        /* @var $boModule AdminModule */
-        if ($boModule !== null) {
-            $app->controllerMap['bc:graphql:configure'] = ConfigureController::class;
-            $pattern = $boModule->getUniqueId().'/'.$this->getId().'/configure';
-            $app->getUrlManager()->addRules([
-                // [
-                //     'class' => GroupUrlRule::class,
-                //     'routePrefix' => $this->getUniqueId(),
-                //     'prefix' => $prefix,
-                //     'rules' => [
-                ['class' => UrlRule::class, 'pattern' => $pattern, 'route' => 'bc:graphql:configure'],
-                //         ['class' => UrlRule::class, 'pattern' => '<controller:[\w\-]+>', 'route' => '<controller>'],
-                //         ['class' => UrlRule::class, 'pattern' => '<controller:[\w\-]+>/<action:[\w\-]+>', 'route' => '<controller>/<action>'],
-                //     ],
-                // ]
-            ], false);
-            /*/
-            $boModule->setModule($this->getId(), [
-                'class' => Module::class,
-                'mode' => Module::MODE_ADMIN
-            ]);
-            $ref = new \ReflectionClass(Module::class);
-            if ($ref->implementsInterface(BootstrapInterface::class)) {
-                $gqlModule = $boModule->getModule($this->getId());
-                if ($gqlModule !== null) {
-                    /* @var $gqlModule Module * /
-                    $this->_adminModuleId = $gqlModule->getUniqueId();
-                    $gqlModule->bootstrap($app);
+        if ($adminModule !== null) {
+            $this->registerPluginAdminModule($adminModule);
+            if ($this->getPluginAdminModule() instanceof BootstrapInterface) {
+                list($route,) = $app->urlManager->parseRequest($app->request);
+                if ($route !== null && preg_match('#' . $adminModule->getUniqueId() . '/#', $route) > 0) {
+                    $this->getPluginAdminModule()->bootstrap($app);
+                    $this->configureRoute = '/'.$this->getPluginAdminModule()->getUniqueId().'/configure';
                 }
             }
-            /**/
         }
     }
 
-    public function bootstrapCore($moduleUid, $app)
+    /**
+     * {inheritdoc}
+     */
+    public function bootstrapCore(CoreModule $coreModule, Application $app)
     {
-        if ($app instanceof Application) {
-            // $prefix = $config['name']??$this->getUniqueId();
-            $plugin = \blackcube\core\models\Plugin::find()->andWhere(['id' => $this->getId()])->one();
-            try {
-                $config = Json::decode($plugin->config);
-            } catch (\Exception $e) {
-                $config = [];
-            }
-            $pattern = $config['name']??$this->getId();
-            $app->controllerMap['bc:graphql'] = GraphqlController::class;
-            $app->getUrlManager()->addRules([
-                // [
-                //     'class' => GroupUrlRule::class,
-                //     'routePrefix' => $this->getUniqueId(),
-                //     'prefix' => $prefix,
-                //     'rules' => [
-                         ['class' => UrlRule::class, 'pattern' => $pattern, 'route' => 'bc:graphql/index'],
-                //         ['class' => UrlRule::class, 'pattern' => '<controller:[\w\-]+>', 'route' => '<controller>'],
-                //         ['class' => UrlRule::class, 'pattern' => '<controller:[\w\-]+>/<action:[\w\-]+>', 'route' => '<controller>/<action>'],
-                //     ],
-                // ]
-            ], true);
-        }
-        /*/
-        $app->setModule($this->getId(), [
-            'class' => Module::class,
-            'mode' => Module::MODE_FRONT
-        ]);
-        $ref = new \ReflectionClass(Module::class);
-        if ($ref->implementsInterface(BootstrapInterface::class)) {
-            $gqlModule = $app->getModule($this->getId());
-            if ($gqlModule !== null) {
-                /* @var $gqlModule Module * /
-                $this->_coreModuleId = $gqlModule->getUniqueId();
-                $gqlModule->bootstrap($app);
+        if ($coreModule !== null) {
+            $this->registerPluginCoreModule($coreModule);
+            if ($coreModule !== null && $this->getPluginCoreModule() instanceof BootstrapInterface) {
+                $this->getPluginCoreModule()->bootstrap($app);
             }
         }
-        /**/
     }
-    
+
     /**
      * Register translation stuff
      */
     public function registerTranslations()
     {
-        Yii::$app->i18n->translations['blackcube/graphql/*'] = [
+        Yii::$app->i18n->translations['blackcube/plugins/graphql/*'] = [
             'class' => GettextMessageSource::class,
             'sourceLanguage' => 'en',
             'useMoFile' => true,
-            'basePath' => '@blackcube/graphql/i18n',
+            'basePath' => '@blackcube/plugins/graphql/i18n',
         ];
     }
 
@@ -304,17 +279,8 @@ class Plugin implements PluginManagerInterface, PluginCoreBootstrapInterface, Pl
      */
     public function getConfigureRoute()
     {
-        $pattern = $this->getId().'/configure';
-        return [$pattern];
-        /*/
-        if ($this->_adminModuleId !== null) {
-            $configureRoute = '/'.$this->_adminModuleId.'/configure';
-            return [$configureRoute];
-        } else {
-            // return null;
-            throw new Exception('Module id not defined');
-        }
-        /**/
+        // $pattern = '/'.$this->getPluginAdminModule()->getUniqueId().'/configure';
+        return [$this->configureRoute];
     }
 
     /**
@@ -344,7 +310,7 @@ class Plugin implements PluginManagerInterface, PluginCoreBootstrapInterface, Pl
      */
     public static function t($category, $message, $params = [], $language = null)
     {
-        return Yii::t('blackcube/graphql/' . $category, $message, $params, $language);
+        return Yii::t('blackcube/plugins/graphql/' . $category, $message, $params, $language);
     }
 
 }

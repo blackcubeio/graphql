@@ -9,10 +9,10 @@
  * @license https://www.redcat.io/license license
  * @version XXX
  * @link https://www.redcat.io
- * @package blackcube\graphql\\components
+ * @package blackcube\plugins\graphql\components
  */
 
-namespace blackcube\graphql\components;
+namespace blackcube\plugins\graphql\components;
 
 use yii\helpers\Inflector;
 
@@ -24,7 +24,7 @@ use yii\helpers\Inflector;
  * @license https://www.redcat.io/license license
  * @version XXX
  * @link https://www.redcat.io
- * @package blackcube\graphql\components
+ * @package blackcube\plugins\graphql\components
  */
 class Rbac
 {

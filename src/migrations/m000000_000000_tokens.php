@@ -9,10 +9,10 @@
  * @license https://www.redcat.io/license license
  * @version XXX
  * @link https://www.redcat.io
- * @package blackcube\graphql\migrations
+ * @package blackcube\plugins\graphql\migrations
  */
 
-namespace blackcube\graphql\migrations;
+namespace blackcube\plugins\graphql\migrations;
 
 use yii\db\Migration;
 
@@ -24,7 +24,7 @@ use yii\db\Migration;
  * @license https://www.redcat.io/license license
  * @version XXX
  * @link https://www.redcat.io
- * @package blackcube\graphql\migrations
+ * @package blackcube\plugins\graphql\migrations
  */
 class m000000_000000_tokens extends Migration
 {

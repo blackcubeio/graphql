@@ -9,22 +9,20 @@
  * @license https://www.redcat.io/license license
  * @version XXX
  * @link https://www.redcat.io
- * @package blackcube\graphql\views\configure
+ * @package blackcube\plugins\graphql\admin\views\configure
  *
- * @var $configureModel \blackcube\graphql\models\ConfigureModel
+ * @var $configureModel \blackcube\plugins\graphql\models\ConfigureModel
  * @var $boId string
  * @var $this \yii\web\View
  */
 
-use blackcube\admin\Module;
-use blackcube\admin\components\Rbac;
 use blackcube\admin\helpers\Html;
-use blackcube\admin\widgets\Sidebar;
 use blackcube\admin\helpers\BlackcubeHtml;
 use blackcube\admin\helpers\Heroicons;
 use yii\helpers\Url;
 use blackcube\admin\helpers\Aurelia;
 use yii\helpers\ArrayHelper;
+use blackcube\plugins\graphql\Plugin;
 
 ?>
 <main class="application-content">

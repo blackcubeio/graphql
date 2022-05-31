@@ -1,10 +1,23 @@
 <?php
+/**
+ * Bloc.php
+ *
+ * PHP version 7.4+
+ *
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2022 Redcat
+ * @license https://www.redcat.io/license license
+ * @version XXX
+ * @link https://www.redcat.io
+ * @package blackcube\plugins\graphql\types
+ */
 
-namespace blackcube\graphql\types;
+namespace blackcube\plugins\graphql\types;
 
 use blackcube\core\models\BlocType;
 use blackcube\core\models\Elastic;
 use blackcube\core\validators\ElasticValidator;
+use blackcube\plugins\graphql\Plugin;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
@@ -13,6 +26,17 @@ use Swaggest\JsonSchema\Schema;
 use yii\base\NotSupportedException;
 use yii\helpers\Inflector;
 
+/**
+ * Class Bloc
+ *
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2022 Redcat
+ * @license https://www.redcat.io/license license
+ * @version XXX
+ * @link https://www.redcat.io
+ * @package blackcube\plugins\graphql\types
+ * @since XXX
+ */
 class Bloc extends UnionType
 {
     public static $blocTypes = [];
@@ -22,7 +46,7 @@ class Bloc extends UnionType
     {
         $config = [
             'name' => 'Bloc',
-            'description' => 'Data bloc',
+            'description' => Plugin::t('types', 'Data bloc'),
             'types' => function() {
                 if (empty(static::$types)) {
                     $blocTypes = BlocType::find()->all();

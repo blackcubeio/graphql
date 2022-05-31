@@ -1,8 +1,8 @@
 <?php
 
-namespace blackcube\graphql\types;
+namespace blackcube\plugins\graphql\types;
 
-use blackcube\graphql\Plugin;
+use blackcube\plugins\graphql\Plugin;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type as DefinitionType;
 
@@ -15,7 +15,7 @@ class ReadQuery extends ObjectType
             'fields' => [
                 'node' => [
                     'type' => Blackcube::node(),
-                    'description' => 'Return active node by id',
+                    'description' => Plugin::t('types', 'Return active node by id'),
                     'args' => [
                         'id' => DefinitionType::nonNull(DefinitionType::id())
                     ],
@@ -23,7 +23,7 @@ class ReadQuery extends ObjectType
                 ],
                 'nodes' => [
                     'type' => DefinitionType::listOf(Blackcube::node()),
-                    'description' => 'Return active nodes',
+                    'description' => Plugin::t('types', 'Return active nodes'),
                     'args' => [
                         'pagination' => Blackcube::pagination(),
                         'filters' => Blackcube::nodeFilter(),

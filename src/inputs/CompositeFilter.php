@@ -1,12 +1,35 @@
 <?php
+/**
+ * CompositeFilter.php
+ *
+ * PHP version 7.4+
+ *
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2022 Redcat
+ * @license https://www.redcat.io/license license
+ * @version XXX
+ * @link https://www.redcat.io
+ * @package blackcube\plugins\graphql\inputs
+ */
 
-namespace blackcube\graphql\inputs;
+namespace blackcube\plugins\graphql\inputs;
 
-use blackcube\graphql\Plugin;
+use blackcube\plugins\graphql\Plugin;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\Type;
 use yii\helpers\ArrayHelper;
 
+/**
+ * Class CompositeFilter
+ *
+ * @author Philippe Gaultier <pgaultier@redcat.io>
+ * @copyright 2010-2022 Redcat
+ * @license https://www.redcat.io/license license
+ * @version XXX
+ * @link https://www.redcat.io
+ * @package blackcube\plugins\graphql\inputs
+ * @since XXX
+ */
 class CompositeFilter extends InputObjectType
 {
     public function __construct()
@@ -27,6 +50,7 @@ class CompositeFilter extends InputObjectType
         ];
         parent::__construct($config);
     }
+
     public function extract($args)
     {
         $defaultArgs = [];

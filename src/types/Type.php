@@ -1,10 +1,10 @@
 <?php
 
-namespace blackcube\graphql\types;
+namespace blackcube\plugins\graphql\types;
 
 use blackcube\core\interfaces\ElementInterface;
 use blackcube\core\models\Type as Model;
-use blackcube\graphql\Plugin;
+use blackcube\plugins\graphql\Plugin;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type as DefinitionType;
 

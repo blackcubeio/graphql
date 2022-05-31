@@ -12,256 +12,280 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/common"
+msgid "Cancel"
+msgstr ""
+
+msgctxt "blackcube/plugins/graphql/common"
+msgid "Save"
+msgstr ""
+
+msgctxt "blackcube/plugins/graphql/gql"
+msgid "Graphql"
+msgstr ""
+
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Category element. Categories are used for transversal hierarchy"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Category where the tag is attached"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Children of the node (rubric)"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Composite element. Composites are used to represent an article"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Composites attached to the node (rubric)"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Creation date"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
+msgid "Data bloc"
+msgstr ""
+
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Domain"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Host"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "ID"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Language details"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Language of the category"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Language of the composite"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Language of the node (rubric)"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Language of the tag"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Language used"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Level"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "List of available languages"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "List of available parameters"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "List of available types"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "List of blocs (smallest content element) attached to the category"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "List of blocs (smallest content element) attached to the composite"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "List of blocs (smallest content element) attached to the node (rubric)"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "List of blocs (smallest content element) attached to the tag"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "List of composites (articles) attached to the tag"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "List of nodes (rubrics) attached to the tag"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Name"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Node contents"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Nodes linked to the composite (rubrics)"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Offset"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Page size"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Parameter CMS wide"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Path"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Publication ending date (used if not null)"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Publication starting date (used if not null)"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Return active categories"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Return active category by id"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Return active composite by id"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Return active composites"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
+msgid "Return active node by id"
+msgstr ""
+
+msgctxt "blackcube/plugins/graphql/types"
+msgid "Return active nodes"
+msgstr ""
+
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Return active tag by id"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Return active tags"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Return language by ID"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Return parameter by domain and name"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Return type by ID"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Route"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Slug element. Slugs are used to map elements to URLs"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Slug of the category"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Slug of the composite"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Slug of the node (rubric)"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Slug of the tag"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Tag element. Tags are used to create a transversal hierarchy"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Tags attached to the category"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Tags attached to the composite"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Tags attached to the node (rubric)"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Technical elements related to the CMS"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid ""
 "Type of elements. It describe the main type of an element and the route used "
 "(if available)"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Type of the category"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Type of the composite"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Type of the node (rubric)"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Type of the tag"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Update date"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Url"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "Value"
 msgstr ""
 
-msgctxt "blackcube/graphql/types"
+msgctxt "blackcube/plugins/graphql/types"
 msgid "true if it's a main language"
 msgstr ""

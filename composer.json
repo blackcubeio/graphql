@@ -43,7 +43,7 @@
     },
     "autoload": {
         "psr-4": {
-            "blackcube\\graphql\\": "src/"
+            "blackcube\\plugins\\graphql\\": "src/"
         }
     },
     "autoload-dev": {

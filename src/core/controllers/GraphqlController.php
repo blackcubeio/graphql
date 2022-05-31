@@ -9,24 +9,16 @@
  * @license https://www.redcat.io/license license
  * @version XXX
  * @link https://www.redcat.io
- * @package blackcube\graphql\controllers
+ * @package blackcube\plugins\graphql\core\controllers
  */
 
-namespace blackcube\graphql\controllers;
+namespace blackcube\plugins\graphql\core\controllers;
 
-use blackcube\graphql\components\CompositeType;
-use blackcube\graphql\components\GqlTypes;
-use blackcube\graphql\components\QueryType;
-use blackcube\graphql\components\Types;
-use blackcube\graphql\types\Blackcube;
+use blackcube\plugins\graphql\types\Blackcube;
 use GraphQL\Error\DebugFlag;
-use yii\filters\AccessControl;
-use yii\filters\auth\CompositeAuth;
 use yii\web\Controller;
 use Yii;
 use GraphQL\GraphQL;
-use GraphQL\Type\Definition\ObjectType;
-use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Schema;
 use yii\web\Response;
 
@@ -38,7 +30,7 @@ use yii\web\Response;
  * @license https://www.redcat.io/license license
  * @version XXX
  * @link https://www.redcat.io
- * @package blackcube\graphql\controllers
+ * @package blackcube\plugins\graphql\core\controllers
  * @since XXX
  */
 class GraphqlController extends Controller
