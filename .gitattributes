@@ -1,0 +1,5 @@
+/.gitattributes   export-ignore
+/.gitignore       export-ignore
+/.DS_Store        export-ignore
+/composer.lock    export-ignore
+/CHANGELOG.md     export-ignore
