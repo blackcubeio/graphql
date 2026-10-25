@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @copyright 2010-2026 Blackcube - Philippe Gaultier
+ * @license https://www.blackcube.io/license
+ * @link https://www.blackcube.io
+ */
+
+namespace Blackcube\Graphql\Types;
+
+use GraphQL\Type\Definition\InputObjectType;
+use GraphQL\Type\Definition\Type;
+
+/**
+ * GraphQL input for pagination: page size and offset, with defaults.
+ *
+ * @copyright 2010-2026 Blackcube - Philippe Gaultier
+ * @license https://www.blackcube.io/license
+ * @link https://www.blackcube.io
+ */
+class PaginationInput extends InputObjectType
+{
+    private const DEFAULT_SIZE = 10;
+    private const DEFAULT_OFFSET = 0;
+
+    public function __construct()
+    {
+        parent::__construct([
+            'name' => 'Pagination',
+            'fields' => [
+                'size' => [
+                    'type' => Type::int(),
+                    'defaultValue' => self::DEFAULT_SIZE,
+                ],
+                'offset' => [
+                    'type' => Type::int(),
+                    'defaultValue' => self::DEFAULT_OFFSET,
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * Extract pagination values from GraphQL args.
+     *
+     * @return array{size: int, offset: int}
+     */
+    public static function extract(array $args): array
+    {
+        $pagination = $args['pagination'] ?? [];
+
+        return [
+            'size' => (int) ($pagination['size'] ?? self::DEFAULT_SIZE),
+            'offset' => (int) ($pagination['offset'] ?? self::DEFAULT_OFFSET),
+        ];
+    }
+}
